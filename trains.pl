@@ -1,6 +1,7 @@
 :- use_module(library(clpfd)).
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
+:- use_module(library(http/http_session)).
 
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 
