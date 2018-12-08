@@ -7,7 +7,7 @@
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
 
-:- http_handler(/,root_handler, []).
+:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route,_), []).
 
 root_handler(_):-
             http_set_session_options([timeout(0)]),
@@ -31,8 +31,9 @@ modules([H|T]) -->
         
     
 trainSchedules(ST, ET, SS, ES, Conn, Route):-
-    http_set_session_options([timeout(0)]),
     
+    http_set_session_options([timeout(0)]),
+    format('Content-Type: text/html~n~n', []),
     
     %(ST, StartingTime) in minutes
     %(ET, EndingTime) in minutes
@@ -220,7 +221,13 @@ trainSchedules(ST, ET, SS, ES, Conn, Route):-
     SUM #= FIR+SEC+THIR+FOR+FIF+SIX+SEV+EIGH+NIN+TEN+ELE,
 
     %Finnally we are minimizing this sum. and labeling the Ending time of each train.
-    labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]).
+    labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]),
+    reply_html_page(title('Loaded Prolog modules'),
+                        [ h1('Loaded Prolog modules'),
+                          table([ \header
+                                | \modules([1,2,3,4])
+                                ])
+                        ]).
 
 
 
