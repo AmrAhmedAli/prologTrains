@@ -13,13 +13,18 @@ root_handler(_):-
             http_set_session_options([timeout(0)]),
             format('Content-Type: text/html~n~n', []),
             trainSchedules(ST, ET, SS, ES, Conn, Route),
-            write(ST).
+            reply_html_page(title('Loaded Prolog modules'),
+                        [ h1('Loaded Prolog modules'),
+                          table([ \header
+                                | \modules(ST)
+                                ])
+                        ]).
 
 header -->
-        html(tr([th('Module'), th('File')])).
+        html(tr([th('Starting Times')])).
 modules([]) -->	[].
 modules([H|T]) -->
-        html(tr([td(H), td(H)])),
+        html(tr([td(H)])),
         modules(T).
         
         
