@@ -4,14 +4,10 @@
 
 :- http_handler(/, root_handler, []).
 
-
 root_handler(_):-
         format('Content-Type: text/html~n~n', []),
         write('Hello from Main'),
-        thread_create(comm, ID,[]).
-        
-comm():-
-    trainSchedules(ST, ET, SS, ES, Conn, Route),
+        trainSchedules(ST, ET, SS, ES, Conn, Route),
     write(ST),
     write(ET),
     write(SS),
