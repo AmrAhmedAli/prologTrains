@@ -3,7 +3,7 @@
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_session)).
 
-:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
+:- http_handler(/{ST},{ET}, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 
 
 
