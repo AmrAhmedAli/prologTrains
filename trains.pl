@@ -7,8 +7,9 @@
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
 
-:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 :- http_set_session_options([timeout(0)]).
+:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
+
 
 root_handler(_):-
             http_set_session_options([timeout(0)]),
