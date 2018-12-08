@@ -2,7 +2,7 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 
-:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
+:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route,_), []).
 
 
 root_handler(_):-
