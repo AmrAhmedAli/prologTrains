@@ -2,7 +2,7 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 
-:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route,_), []).
+:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 
 
 root_handler(_):-
@@ -19,7 +19,7 @@ comm(ST, ET, SS, ES, Conn, Route):-
     write(Conn),
     write(Route).
     
-trainSchedules(ST, ET, SS, ES, Conn, Route):-
+trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     format('Content-Type: text/html~n~n', []),
     %(ST, StartingTime) in minutes
     %(ET, EndingTime) in minutes
