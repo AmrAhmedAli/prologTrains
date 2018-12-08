@@ -7,7 +7,7 @@
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
 
-:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route,_), []).
+:- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 
 root_handler(_):-
             http_set_session_options([timeout(0)]),
@@ -30,7 +30,7 @@ modules([H|T]) -->
         
         
     
-trainSchedules(ST, ET, SS, ES, Conn, Route):-
+trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     
     http_set_session_options([timeout(0)]),
     format('Content-Type: text/html~n~n', []),
