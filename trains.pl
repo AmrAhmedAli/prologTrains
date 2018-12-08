@@ -7,7 +7,10 @@
 root_handler(_):-
         format('Content-Type: text/html~n~n', []),
         write('Hello from Main'),
-        trainSchedules(ST, ET, SS, ES, Conn, Route),
+        thread_create(trainSchedules(ST, ET, SS, ES, Conn, Route), ID,[]),
+        thread_at_exit(comm(ST, ET, SS, ES, Conn, Route)).
+        
+comm(ST, ET, SS, ES, Conn, Route):-
     write(ST),
     write(ET),
     write(SS),
