@@ -7,13 +7,17 @@
 
 root_handler(_):-
         format('Content-Type: text/html~n~n', []),
-        trainSchedules(ST, ET, SS, ES, Conn, Route),
-        write(ST),
-        write(ET),
-        write(SS),
-        write(ES),
-        write(Conn),
-        write(Route).
+        write('Hello from Main'),
+        thread_create(Comm, 1).
+        %trainSchedules(ST, ET, SS, ES, Conn, Route),
+        %write(ST),
+        %write(ET),
+        %write(SS),
+        %write(ES),
+        %write(Conn),
+        %write(Route).
+Comm():-
+    write('InsideComm').
         
 trainSchedules(ST, ET, SS, ES, Conn, Route):-
     
