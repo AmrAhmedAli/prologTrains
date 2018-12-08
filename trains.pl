@@ -4,7 +4,7 @@
 :- use_module(library(http/http_session)).
 :- use_module(library(http/http_client)).
 
-:- http_handler(/,root_handler, []).
+:- http_handler(/,trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 
 
 root_handler(_):-
@@ -15,8 +15,11 @@ root_handler(_):-
         
         
     
-trainSchedules(ST, ET, SS, ES, Conn, Route):-
-
+trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
+        
+    http_set_session_options([timeout(0)]),
+    format('Content-Type: text/html~n~n', []),
+        
     %(ST, StartingTime) in minutes
     %(ET, EndingTime) in minutes
     %(SS, StartingStation) in chars
@@ -203,7 +206,13 @@ trainSchedules(ST, ET, SS, ES, Conn, Route):-
     SUM #= FIR+SEC+THIR+FOR+FIF+SIX+SEV+EIGH+NIN+TEN+ELE,
 
     %Finnally we are minimizing this sum. and labeling the Ending time of each train.
-    labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]).
+    labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]),
+    write(ST),
+    write(ET),
+    write(SS),
+    write(ES),
+    write(Route),
+    write(Conn).
 
 
 
