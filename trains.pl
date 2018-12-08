@@ -12,12 +12,8 @@
 root_handler(_):-
             http_set_session_options([timeout(0)]),
             format('Content-Type: text/html~n~n', []),
-    reply_html_page(title('Loaded Prolog modules'),
-                        [ h1('Loaded Prolog modules'),
-                          table([ \header
-                                | \modules([1,2,3,4,5,6,7])
-                                ])
-                        ]).
+            trainSchedules(ST, ET, SS, ES, Conn, Route),
+            write(ST).
 
 header -->
         html(tr([th('Module'), th('File')])).
@@ -27,8 +23,9 @@ modules([H|T]) -->
         modules(T).
         
         
+        
     
-trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
+trainSchedules(ST, ET, SS, ES, Conn, Route):-
     
     
     
