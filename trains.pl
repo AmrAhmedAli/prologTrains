@@ -2,28 +2,21 @@
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_session)).
+:- use_module(library(http/http_client)).
 
-:- http_handler(/{ST},{ET}, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
-
+:- http_handler(/,root_handler, []).
 
 
 root_handler(_):-
+        http_set_session_options([timeout(0)]),
         format('Content-Type: text/html~n~n', []),
-        write('Hello from Main'),
-        thread_create(trainSchedules(ST, ET, SS, ES, Conn, Route), ID,[]),
-        thread_at_exit(comm(ST, ET, SS, ES, Conn, Route)).
+        findall(X0, trainSchedules(ST, ET, SS, ES, Conn, Route), X),
+        write(X).
         
-comm(ST, ET, SS, ES, Conn, Route):-
-    write(ST),
-    write(ET),
-    write(SS),
-    write(ES),
-    write(Conn),
-    write(Route).
+        
     
-trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
-    http_set_session_options([timeout(0)]),
-    format('Content-Type: text/html~n~n', []),
+trainSchedules(ST, ET, SS, ES, Conn, Route):-
+
     %(ST, StartingTime) in minutes
     %(ET, EndingTime) in minutes
     %(SS, StartingStation) in chars
@@ -210,13 +203,7 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     SUM #= FIR+SEC+THIR+FOR+FIF+SIX+SEV+EIGH+NIN+TEN+ELE,
 
     %Finnally we are minimizing this sum. and labeling the Ending time of each train.
-    labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]),
-     write(ST),
-    write(ET),
-    write(SS),
-    write(ES),
-    write(Conn),
-    write(Route).
+    labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]).
 
 
 
