@@ -3,23 +3,35 @@
 :- use_module(library(http/http_dispatch)).
 :- use_module(library(http/http_session)).
 :- use_module(library(http/http_client)).
+:- use_module(library(http/html_write)).
+:- use_module(library(http/http_parameters)).
+:- use_module(library(uri)).
 
-:- http_handler(/,trainSchedules(ST, ET, SS, ES, Conn, Route), []).
+:- http_handler(/,root_handler, []).
 
 
 root_handler(_):-
         http_set_session_options([timeout(0)]),
         format('Content-Type: text/html~n~n', []),
-        findall(X0, trainSchedules(ST, ET, SS, ES, Conn, Route,_), X),
-        write(X).
+        trainSchedules(ST, ET, SS, ES, Conn, Route),
+        reply_html_page(title('Loaded Prolog modules'),
+                        [ h1('Loaded Prolog modules'),
+                          table([ \header
+                                | \modules(ST)
+                                ])
+                        ]).
+header -->
+        html(tr([th('Module'), th('File')])).
+modules([]) -->	[].
+modules([H|T]) -->
+        html(tr([td(H), td(H)])),
+        modules(T).
         
         
     
-trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
+trainSchedules(ST, ET, SS, ES, Conn, Route):-
         
-    http_set_session_options([timeout(0)]),
-    format('Content-Type: text/html~n~n', []),
-        
+    
     %(ST, StartingTime) in minutes
     %(ET, EndingTime) in minutes
     %(SS, StartingStation) in chars
