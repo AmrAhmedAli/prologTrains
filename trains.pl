@@ -4,6 +4,7 @@
 :- use_module(library(http/http_session)).
 
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
+:-  http_set_session_options(0).
 
 
 root_handler(_):-
@@ -21,7 +22,6 @@ comm(ST, ET, SS, ES, Conn, Route):-
     write(Route).
     
 trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
-    http_set_session_options(0),
     format('Content-Type: text/html~n~n', []),
     %(ST, StartingTime) in minutes
     %(ET, EndingTime) in minutes
