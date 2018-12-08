@@ -8,7 +8,7 @@
 root_handler(_):-
         format('Content-Type: text/html~n~n', []),
         %trainSchedules(ST, ET, SS, ES, Conn, Route),
-        format('Hello from Prolog Ya Amr: ~w', []).
+        format('Hello from Prolog Ya Amr: ~w', ['title']).
 
 trainSchedules(ST, ET, SS, ES, Conn, Route):-
     
