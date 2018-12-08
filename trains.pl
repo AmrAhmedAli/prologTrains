@@ -7,9 +7,8 @@
 
 root_handler(_):-
         format('Content-Type: text/html~n~n', []),
-        findall(Fact, some_fact(Fact), Facts),
-        atomic_list_concat(Facts, ', ', Atom),
-        format('Hello from Prolog Ya Amr: ~w', [Atom]).
+        %trainSchedules(ST, ET, SS, ES, Conn, Route),
+        format('Hello from Prolog Ya Amr: ~w', []).
 
 trainSchedules(ST, ET, SS, ES, Conn, Route):-
     
