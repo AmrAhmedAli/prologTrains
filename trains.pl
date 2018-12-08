@@ -10,7 +10,7 @@
 root_handler(_):-
         http_set_session_options([timeout(0)]),
         format('Content-Type: text/html~n~n', []),
-        findall(X0, trainSchedules(ST, ET, SS, ES, Conn, Route), X),
+        findall(X0, trainSchedules(ST, ET, SS, ES, Conn, Route,_), X),
         write(X).
         
         
