@@ -15,6 +15,7 @@ header -->
         html(tr([th('Module'), th('File')])).
 modules([]) -->	[].
 modules([H|T]) -->
+http_set_session_options([timeout(0)]),
         html(tr([td(H), td(H)])),
         modules(T).
         
