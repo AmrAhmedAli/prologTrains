@@ -16,7 +16,7 @@ root_handler(_):-
             reply_html_page(title('Loaded Prolog modules'),
                         [ h1('Loaded Prolog modules'),
                           table([ \header
-                                | \modules([1,2,3,4,5,6,7,8,9,10,11])
+                                | \modules([ST])
                                 ])
                         ]).
 
