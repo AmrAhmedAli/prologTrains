@@ -7,9 +7,14 @@
 
 root_handler(_):-
         format('Content-Type: text/html~n~n', []),
-        %trainSchedules(ST, ET, SS, ES, Conn, Route),
-        write('Hello from Prolog Ya Amr').
-
+        trainSchedules(ST, ET, SS, ES, Conn, Route),
+        write(ST),
+        write(ET),
+        write(SS),
+        write(ES),
+        write(Conn),
+        write(Route).
+        
 trainSchedules(ST, ET, SS, ES, Conn, Route):-
     
     %(ST, StartingTime) in minutes
