@@ -8,7 +8,7 @@
 root_handler(_):-
         format('Content-Type: text/html~n~n', []),
         write('Hello from Main'),
-        thread_create(comm, 1).
+        thread_create(comm, ID,[]).
         %trainSchedules(ST, ET, SS, ES, Conn, Route),
         %write(ST),
         %write(ET),
