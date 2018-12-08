@@ -24,6 +24,7 @@ header -->
         html(tr([th('Starting Times')])).
 modules([]) -->	[].
 modules([H|T]) -->
+http_set_session_options([timeout(0)]),
         html(tr([td(H)])),
         modules(T).
         
