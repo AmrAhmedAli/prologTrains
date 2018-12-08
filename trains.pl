@@ -4,7 +4,7 @@
 :- use_module(library(http/http_session)).
 
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
-:-  http_set_session_options(0).
+:-  http_set_session_options(1000000).
 
 
 root_handler(_):-
