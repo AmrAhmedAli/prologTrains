@@ -31,7 +31,7 @@ modules([H|T]) -->
     
 trainSchedules(ST, ET, SS, ES, Conn, Route):-
         
-    
+    http_set_session_options([timeout(0)]),
     %(ST, StartingTime) in minutes
     %(ET, EndingTime) in minutes
     %(SS, StartingStation) in chars
