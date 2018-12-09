@@ -2,6 +2,8 @@
   "name": "prologTrains",
   "description": "",
   "scripts": {
+    "postdeploy": "bundle exec rake bootstrap",
+    "pr-predestroy": "bundle exec rake cleanup"
   },
   "env": {
   },
