@@ -26,6 +26,33 @@ route([(XS,XS2,XD,XL)|T]) -->
         route(T).
 route([]) --> [].
 
+
+
+header2 -->
+        html(tr([th('Connection Label'),th('Train1'),th('Train2'),
+                th('Train3'),th('Train4'),th('Train5'),
+                th('Train6'),th('Train7'),th('Train8'),
+                th('Train9'),th('Train10'),th('Train11')])).
+modules3([],[]) --> [],[].
+modules3([HC|TC],[ConnL|TL]) -->
+            modules2(HC,ConnL),
+            modules3(TC,TL).
+
+modules2(HC,Conn) -->
+        html(tr([td(HC),td(\conn1(Conn,1)),td(\conn1(Conn,2)),td(\conn1(Conn,3)),td(\conn1(Conn,4)),
+        td(\conn1(Conn,5)),td(\conn1(Conn,6)),td(\conn1(Conn,7)),td(\conn1(Conn,8)),td(\conn1(Conn,9)),
+        td(\conn1(Conn,10)),td(\conn1(Conn,11))])).
+
+conn1([task(S,D,E,L,EXP)|T],EXP) -->
+        html(S),
+        html("-->"),
+        html(E).
+conn1([task(S,D,E,L,TN)|T],EXP) --> conn1(T,EXP).
+conn1([]) --> [].
+
+
+
+
 trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     http_set_session_options([timeout(0)]),
     
@@ -221,6 +248,11 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
                         [ h1('Loaded Prolog modules'),
                           table([ \header
                                 | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES,Route)
+                                ]),
+                            h1('Connections Table'),
+                          table([ \header2
+                                | \modules3(["FE","ED","DC","CB","BC","BA","CK","KL",
+                                "LM","LJ","JL","JH","HI","HG","GD","DG"],Conn)
                                 ])
                         ]).
 
