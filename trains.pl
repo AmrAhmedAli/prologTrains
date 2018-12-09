@@ -13,7 +13,7 @@
 :- http_set_session_options([timeout(0)]).
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 :- http_handler(css('ptable.css'),  http_reply_file('ptable.css', []), []).
-
+http:location(css, root(css), []).
 
 header -->
         html(tr([th('TrainN0.'),th('Starting Times'),th('Starting Station'),
