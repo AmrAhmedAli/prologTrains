@@ -10,7 +10,7 @@
 :- use_module(lod).
 :- http_set_session_options([timeout(0)]).
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
-:- http_handler(css('ptable.css'),  http_reply_file('ptable.css', []), []).
+:- http_handler(css('style.css'),  http_reply_file('style.css', []), []).
 http:location(css, root(css), []).
 
 header -->
@@ -248,12 +248,12 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]),
     reply_html_page(title('Loaded Prolog modules'),
                         [ h1('Loaded Prolog modules'),
-                          table(class(properties),
+                          table(
                                 [ \header
                                 | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES,Route)
                                 ]),
                             h1('Connections Table'),
-                          table(class(properties),
+                          table(
                                 [ \header2
                                 | \modules3(["FE","ED","DC","CB","BC","BA","CK","KL",
                                 "LM","LJ","JL","JH","HI","HG","GD","DG"],Conn)
