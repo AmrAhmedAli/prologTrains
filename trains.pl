@@ -11,14 +11,16 @@
 
 root_handler(_):-
             format('Content-Type: text/html~n~n', []),
-            %trainSchedules(ST, ET, SS, ES, Conn, Route),
+            
             http_set_session_options([timeout(0)]),
             reply_html_page(title('Loaded Prolog modules'),
                         [ h1('Loaded Prolog modules'),
                           table([ \header
                                 | \modules([1,2,3,4])
                                 ])
-                        ]).
+                        ]),
+             http_set_session_options([timeout(0)]),
+             trainSchedules(ST, ET, SS, ES, Conn, Route).
 
 header -->
         html(tr([th('Starting Times')])).
