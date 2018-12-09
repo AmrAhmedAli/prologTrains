@@ -248,9 +248,11 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]),
     reply_html_page(title('Loaded Prolog modules'),
                         [ h1('Loaded Prolog modules'),
-                          table(
+                          html([\html_requires(css('ptable.css')),
+                             table(
                                 [ \header
                                 | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES,Route)
+                                ])
                                 ]),
                             h1('Connections Table'),
                           table(
