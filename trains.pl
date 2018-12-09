@@ -258,7 +258,7 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
                                 ]),
                             h1('Connections Table'),
                          
-                         table(id(customers),
+                         table(class(properties),
                                 [ \header2
                                 | \modules3(["FE","ED","DC","CB","BC","BA","CK","KL",
                                 "LM","LJ","JL","JH","HI","HG","GD","DG"],Conn)
