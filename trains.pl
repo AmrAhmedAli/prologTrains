@@ -13,11 +13,18 @@
 
 header -->
         html(tr([th('TrainN0.'),th('Starting Times'),th('Starting Station'),
-                th('Ending Times'),th('Ending Station')])).
-modules([],[],[],[],[]) --> [],[],[],[],[].
-modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES]) -->
-        html(tr([td(HT),td(HST),td(HSS),td(HET),td(HES)])),
-        modules(TT,TST,TSS,TET,TES).
+                th('Ending Times'),th('Ending Station'),th('Route Followed')])).
+modules([],[],[],[],[],[]) --> [],[],[],[],[],[].
+modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR]) -->
+        html(tr([td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])),
+        modules(TT,TST,TSS,TET,TES,TR).
+route([(XS,XS2,XD,XL)|T]) -->
+        html(XS),
+        html("-->"),
+        html(XS2),
+        html(", "),
+        route(T).
+route([]) --> [].
 
 trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     http_set_session_options([timeout(0)]),
@@ -213,7 +220,7 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     reply_html_page(title('Loaded Prolog modules'),
                         [ h1('Loaded Prolog modules'),
                           table([ \header
-                                | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES)
+                                | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES,Route)
                                 ])
                         ]).
 
