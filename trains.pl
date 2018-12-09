@@ -6,6 +6,8 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
+:- use_module(library(semweb/rdf_db)).
+:- use_module(lod).
 :- http_set_session_options([timeout(0)]).
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 :- http_handler(css('ptable.css'),  http_reply_file('ptable.css', []), []).
