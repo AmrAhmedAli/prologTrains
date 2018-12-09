@@ -6,11 +6,10 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
-:-  http_set_session_options([timeout(0)]).
+:- http_set_session_options([timeout(0)]).
 :- http_handler(/, root_handler, []).
 
 root_handler(_):-
-            http_set_session_options([timeout(0)]),
             format('Content-Type: text/html~n~n', []),
             http_set_session_options([timeout(0)]),
             trainSchedules(ST, ET, SS, ES, Conn, Route),
