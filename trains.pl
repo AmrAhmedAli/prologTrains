@@ -8,6 +8,8 @@
 :- use_module(library(uri)).
 :- use_module(library(semweb/rdf_db)).
 :- use_module(lod).
+:- use_module(library(http/html_head)).
+
 :- http_set_session_options([timeout(0)]).
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 :- http_handler(css('style.css'),  http_reply_file('style.css', []), []).
