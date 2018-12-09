@@ -12,15 +12,15 @@
 
 :- http_set_session_options([timeout(0)]).
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
-:- http_handler(css('ptable.css'),  http_reply_file('css/ptable.css', []), []).
+:- http_handler(css('style.css'),  http_reply_file('css/style.css', []), []).
 http:location(css, root(css), []).
 
 header -->
-        html([\html_requires(css('ptable.css')), tr([th('TrainN0.'),th('Starting Times'),th('Starting Station'),
+        html([\html_requires(css('style.css')), tr([th('TrainN0.'),th('Starting Times'),th('Starting Station'),
                 th('Ending Times'),th('Ending Station'),th('Route Followed')])]).
 modules([],[],[],[],[],[]) --> [],[],[],[],[],[].
 modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR]) -->
-        html([\html_requires(css('ptable.css')),tr([td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])]),
+        html([\html_requires(css('style.css')),tr([td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])]),
         modules(TT,TST,TSS,TET,TES,TR).
 route([(XS,XS2,XD,XL)|T]) -->
         html(XS),
@@ -33,7 +33,7 @@ route([]) --> [].
 
 
 header2 -->
-        html([\html_requires(css('ptable.css')),tr([th('Connection Label'),th('Train1'),th('Train2'),
+        html([\html_requires(css('style.css')),tr([th('Connection Label'),th('Train1'),th('Train2'),
                 th('Train3'),th('Train4'),th('Train5'),
                 th('Train6'),th('Train7'),th('Train8'),
                 th('Train9'),th('Train10'),th('Train11')])]).
@@ -43,7 +43,7 @@ modules3([HC|TC],[ConnL|TL]) -->
             modules3(TC,TL).
 
 modules2(HC,Conn) -->
-        html([\html_requires(css('ptable.css')),tr([td(HC),td(\conn1(Conn,1)),td(\conn1(Conn,2)),td(\conn1(Conn,3)),td(\conn1(Conn,4)),
+        html([\html_requires(css('style.css')),tr([td(HC),td(\conn1(Conn,1)),td(\conn1(Conn,2)),td(\conn1(Conn,3)),td(\conn1(Conn,4)),
         td(\conn1(Conn,5)),td(\conn1(Conn,6)),td(\conn1(Conn,7)),td(\conn1(Conn,8)),td(\conn1(Conn,9)),
         td(\conn1(Conn,10)),td(\conn1(Conn,11))])]).
 
@@ -251,14 +251,14 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     reply_html_page(title('Loaded Prolog modules'),
                         [ h1('Loaded Prolog modules'),
                          
-                             table(class(properties),
+                             table(class(table),
                                 [ \header
                                 | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES,Route)
                               
                                 ]),
                             h1('Connections Table'),
                          
-                         table(class(properties),
+                         table(class(table),
                                 [ \header2
                                 | \modules3(["FE","ED","DC","CB","BC","BA","CK","KL",
                                 "LM","LJ","JL","JH","HI","HG","GD","DG"],Conn)
