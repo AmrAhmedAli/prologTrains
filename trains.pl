@@ -6,7 +6,7 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
-:- http_set_session_options([timeout(0),route(/)]).
+:- http_set_session_options([timeout(0)]).
 :- http_handler(/, root_handler, []).
 
 root_handler(_):-
