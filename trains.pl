@@ -50,7 +50,7 @@ conn1([task(S,D,E,L,EXP)|T],EXP) -->
         html("-->"),
         html(E).
 conn1([task(S,D,E,L,TN)|T],EXP) --> conn1(T,EXP).
-conn1([]) --> [].
+conn1([],_) --> [].
 
 
 
