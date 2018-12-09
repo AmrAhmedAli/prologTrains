@@ -2,7 +2,7 @@
   "name": "prologTrains",
   "description": "",
   "scripts": {
-    ptable.css
+    /css/ptable.css
   },
   "env": {
   },
