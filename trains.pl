@@ -6,6 +6,8 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
+:- use_module(library(semweb/rdf_db)).
+:- use_module(lod).
 :- use_module(library(http/html_head)).
 
 :- http_set_session_options([timeout(0)]).
@@ -37,12 +39,19 @@ header2 -->
                 th('Train3'),th('Train4'),th('Train5'),
                 th('Train6'),th('Train7'),th('Train8'),
                 th('Train9'),th('Train10'),th('Train11')])).
-modules3([],[]) --> [],[].
-modules3([HC|TC],[ConnL|TL]) -->
-            modules2(HC,ConnL),
-            modules3(TC,TL).
+modules3([],[],_) --> [],[].
+modules3([HC|TC],[ConnL|TL],1) -->
+            modules2(HC,ConnL,1),
+            modules3(TC,TL,0).
+modules3([HC|TC],[ConnL|TL],0) -->
+            modules2(HC,ConnL,0),
+            modules3(TC,TL,1).
 
-modules2(HC,Conn) -->
+modules2(HC,Conn,1) -->
+        html(tr([bgcolor('#f2f2f2')],[td(HC),td(\conn1(Conn,1)),td(\conn1(Conn,2)),td(\conn1(Conn,3)),td(\conn1(Conn,4)),
+        td(\conn1(Conn,5)),td(\conn1(Conn,6)),td(\conn1(Conn,7)),td(\conn1(Conn,8)),td(\conn1(Conn,9)),
+        td(\conn1(Conn,10)),td(\conn1(Conn,11))])).
+modules2(HC,Conn,0) -->
         html(tr([td(HC),td(\conn1(Conn,1)),td(\conn1(Conn,2)),td(\conn1(Conn,3)),td(\conn1(Conn,4)),
         td(\conn1(Conn,5)),td(\conn1(Conn,6)),td(\conn1(Conn,7)),td(\conn1(Conn,8)),td(\conn1(Conn,9)),
         td(\conn1(Conn,10)),td(\conn1(Conn,11))])).
@@ -261,7 +270,7 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
                          table(width('100%'),
                                 [ \header2
                                 | \modules3(["FE","ED","DC","CB","BC","BA","CK","KL",
-                                "LM","LJ","JL","JH","HI","HG","GD","DG"],Conn)
+                                "LM","LJ","JL","JH","HI","HG","GD","DG"],Conn,1)
                                 ])
                        
                         ]).
