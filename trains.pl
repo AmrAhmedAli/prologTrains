@@ -6,22 +6,22 @@
 :- use_module(library(http/html_write)).
 :- use_module(library(http/http_parameters)).
 :- use_module(library(uri)).
-:- use_module(library(semweb/rdf_db)).
-:- use_module(lod).
 :- use_module(library(http/html_head)).
 
 :- http_set_session_options([timeout(0)]).
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
-:- http_handler(css('ptable.css'),  http_reply_file('css/ptable.css', []), []).
-http:location(css, root(css), []).
+
 
 header -->
-        html([\html_requires(css('ptable.css')), tr([th('TrainN0.'),th('Starting Times'),th('Starting Station'),
-                th('Ending Times'),th('Ending Station'),th('Route Followed')])]).
-modules([],[],[],[],[],[]) --> [],[],[],[],[],[].
-modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR]) -->
-        html([\html_requires(css('ptable.css')),tr([td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])]),
-        modules(TT,TST,TSS,TET,TES,TR).
+        html(tr([bgcolor('#4CAF50'),style('color:white')],[th('TrainN0.'),th('Starting Times'),th('Starting Station'),
+                th('Ending Times'),th('Ending Station'),th('Route Followed')])).
+modules([],[],[],[],[],[],_) --> [],[],[],[],[],[].
+modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR],1) -->
+        html(tr([bgcolor('#f2f2f2')],[td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])),
+        modules(TT,TST,TSS,TET,TES,TR,0).
+modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR],0) -->
+        html(tr([td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])),
+        modules(TT,TST,TSS,TET,TES,TR,1).
 route([(XS,XS2,XD,XL)|T]) -->
         html(XS),
         html("-->"),
@@ -33,19 +33,19 @@ route([]) --> [].
 
 
 header2 -->
-        html([\html_requires(css('ptable.css')),tr([th('Connection Label'),th('Train1'),th('Train2'),
+        html(tr([bgcolor('#4CAF50'),style('color:white')],[th('Connection Label'),th('Train1'),th('Train2'),
                 th('Train3'),th('Train4'),th('Train5'),
                 th('Train6'),th('Train7'),th('Train8'),
-                th('Train9'),th('Train10'),th('Train11')])]).
+                th('Train9'),th('Train10'),th('Train11')])).
 modules3([],[]) --> [],[].
 modules3([HC|TC],[ConnL|TL]) -->
             modules2(HC,ConnL),
             modules3(TC,TL).
 
 modules2(HC,Conn) -->
-        html([\html_requires(css('ptable.css')),tr([td(HC),td(\conn1(Conn,1)),td(\conn1(Conn,2)),td(\conn1(Conn,3)),td(\conn1(Conn,4)),
+        html(tr([td(HC),td(\conn1(Conn,1)),td(\conn1(Conn,2)),td(\conn1(Conn,3)),td(\conn1(Conn,4)),
         td(\conn1(Conn,5)),td(\conn1(Conn,6)),td(\conn1(Conn,7)),td(\conn1(Conn,8)),td(\conn1(Conn,9)),
-        td(\conn1(Conn,10)),td(\conn1(Conn,11))])]).
+        td(\conn1(Conn,10)),td(\conn1(Conn,11))])).
 
 conn1([task(S,D,E,L,EXP)|T],EXP) -->
         html(S),
@@ -251,14 +251,14 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     reply_html_page(title('Loaded Prolog modules'),
                         [ h1('Loaded Prolog modules'),
                          
-                             table(class(properties),
+                             table(width('100%'),
                                 [ \header
-                                | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES,Route)
+                                | \modules([1,2,3,4,5,6,7,8,9,10,11],ST,SS,ET,ES,Route,1)
                               
                                 ]),
                             h1('Connections Table'),
                          
-                         table(class(properties),
+                         table(width('100%'),
                                 [ \header2
                                 | \modules3(["FE","ED","DC","CB","BC","BA","CK","KL",
                                 "LM","LJ","JL","JH","HI","HG","GD","DG"],Conn)
