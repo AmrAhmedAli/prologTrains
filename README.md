@@ -1,4 +1,6 @@
 # prologTrains
+My main .pl file is trains.pl
+
 This app is built and deployed using Heroku App with the buildpack: https://github.com/thetrime/heroku-prolog-buildpack
 Running web application: https://trainsprolog.herokuapp.com/
 
