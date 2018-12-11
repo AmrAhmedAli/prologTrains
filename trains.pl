@@ -268,8 +268,8 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     %Finnally we are minimizing this sum. and labeling the Ending time of each train.
     
     labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]),
-    reply_html_page(title('Trains Table'),
-                        [ h1('Loaded Prolog modules'),
+    reply_html_page(title('Train Scheduling System'),
+                        [ h1('Trains Table'),
                          
                              table(width('100%'),
                                 [ \header
