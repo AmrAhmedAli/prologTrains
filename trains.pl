@@ -15,10 +15,15 @@
 :- http_set_session_options([timeout(0)]).
 :- http_handler(/, trainSchedules(ST, ET, SS, ES, Conn, Route), []).
 
+%The web predicates are header/1, header2/1, modules/7, modules2/3, modules3/3, route/1, conn1/2.
+%All those predicates handles the html output that will be shown in the web.
 
+
+%The predicate header/1 constructs the header of table 1 “Trains table”.
 header -->
         html(tr([bgcolor('#4CAF50'),style('color:white')],[th('TrainN0.'),th('Starting Times'),th('Starting Station'),
                 th('Ending Times'),th('Ending Station'),th('Route Followed')])).
+%the predicate modules/7 constricts the table data of the 11 trains.
 modules([],[],[],[],[],[],_) --> [],[],[],[],[],[].
 modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR],1) -->
         html(tr([bgcolor('#f2f2f2')],[td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])),
@@ -26,6 +31,7 @@ modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR],1) -->
 modules([HT|TT],[HST|TST],[HSS|TSS],[HET|TET],[HES|TES],[HR|TR],0) -->
         html(tr([td(HT),td(HST),td(HSS),td(HET),td(HES),td(\route(HR))])),
         modules(TT,TST,TSS,TET,TES,TR,1).
+%the predicate route/1 is a helper for modules/7, as route/1 constructs the last column of the table Trains.
 route([(XS,XS2,XD,XL)|T]) -->
         html(XS),
         html("-->"),
@@ -35,12 +41,14 @@ route([(XS,XS2,XD,XL)|T]) -->
 route([]) --> [].
 
 
-
+%The predicate header2/1 constructs the header of table 2 “Connections table”.
 header2 -->
         html(tr([bgcolor('#4CAF50'),style('color:white')],[th('Connection Label'),th('Train1'),th('Train2'),
                 th('Train3'),th('Train4'),th('Train5'),
                 th('Train6'),th('Train7'),th('Train8'),
                 th('Train9'),th('Train10'),th('Train11')])).
+%And so on, The predicate modules3/3 constructs the 2nd table data “Connections table”
+%using the help of the predicates: modules2/3, and conn1/2.
 modules3([],[],_) --> [],[].
 modules3([HC|TC],[ConnL|TL],1) -->
             modules2(HC,ConnL,1),
@@ -127,6 +135,7 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     FIR in -250..250,
     SEC in -250..250,
     THIR in -250..250,
+    FOR in -250..250,
     FIF in -250..250,
     SIX in -250..250,
     SEV in -250..250,
@@ -259,7 +268,7 @@ trainSchedules(ST, ET, SS, ES, Conn, Route,_):-
     %Finnally we are minimizing this sum. and labeling the Ending time of each train.
     
     labeling([min(SUM)],[AET, BET, CET, DET, EET, FET, GET, HET,IET, JET, KET]),
-    reply_html_page(title('Loaded Prolog modules'),
+    reply_html_page(title('Trains Table'),
                         [ h1('Loaded Prolog modules'),
                          
                              table(width('100%'),
@@ -302,7 +311,7 @@ final_tasks(SS, ES, ST, ET, FE,ED,DC,CB,BC,BA,CK,KL,LM,LJ,JL,JH,HI,HG,GD,DG, AL,
     %possible_route:
     %For each train, We can get a possible route from the starting station to the ending station
     %using the predicate possible_route.
-    %possible_route returns a list of tuples where each tuple is [(STARTING STATION,ENDING STATION,DURATION,SIZE)..].
+    %possible_route generates a list of tuples where each tuple is [(STARTING STATION,ENDING STATION,DURATION,SIZE)..].
     %SIZE tells whether this connection is a single = 1 or doubled = 2.
     %So this list of tuples represents the stops where a train will go on during his trip from the 
     %intial station to the desired station.
