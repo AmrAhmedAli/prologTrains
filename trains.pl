@@ -1,3 +1,5 @@
+%trainSchedules(ST, ET, SS, ES, Conn, Route,_). To Query the main predicate
+
 :- use_module(library(clpfd)).
 :- use_module(library(http/thread_httpd)).
 :- use_module(library(http/http_dispatch)).
